@@ -1,4 +1,4 @@
-# Whaler of the moon
+# Whalers of the moon
 
 Just a bunch of dockerfiles
 
@@ -10,7 +10,7 @@ Just a bunch of dockerfiles
 
 | Base Image | Entrypoint | Extras | Dockerfile |
 |------------|------------|--------|------------|
-|`golang:1.13.0-alpine3.10`| None | * curl<br> * make<br> * nodejs<br> * npn<br> * golagci-lint<br> * gox<br> * goimports<br> * gomock<br> * mockgen| [Dockerfile](./go-builder/Dokerfile) |
+|`golang:1.13.0-alpine3.10`| None | * curl<br> * make<br> * nodejs<br> * npn<br> * golagci-lint<br> * gox<br> * goimports<br> * gomock<br> * mockgen| [Dockerfile](./go-builder/Dockerfile) |
 
 #### build image
 
