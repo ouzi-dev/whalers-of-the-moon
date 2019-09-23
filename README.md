@@ -27,6 +27,8 @@ Make targets:
 * `make build`: Builds the docker image.
 * `make push`: Push the image to the remote repository.
 
+You can use `make go-builder-push` from the root folder and it will build the image with the default settings and push it to the repo.
+
 ### dind
 
 Docker image to build docker images in docker!
@@ -46,3 +48,4 @@ Make targets:
 * `make build`: Builds the docker image.
 * `make push`: Push the image to the remote repository.
 
+You can use `make dind-push` from the root folder and it will build the image with the default settings and push it to the repo.
