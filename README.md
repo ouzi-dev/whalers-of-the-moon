@@ -8,9 +8,11 @@ Just a bunch of dockerfiles
 
 ### go-builder
 
+Docker image to build with go!
+
 | Base Image | Entrypoint | Extras | Dockerfile |
 |------------|------------|--------|------------|
-|`golang:1.13.0-alpine3.10`| None | * curl<br> * make<br> * nodejs<br> * npn<br> * golagci-lint<br> * gox<br> * goimports<br> * gomock<br> * mockgen| [Dockerfile](./go-builder/Dockerfile) |
+|`golang:1.13.0-alpine3.10`| None | * curl<br> * make<br> * bash<br> * git<br> * nodejs<br> * npn<br> * golagci-lint<br> * gox<br> * goimports<br> * gomock<br> * mockgen| [Dockerfile](./go-builder/Dockerfile) |
 
 #### build image
 
@@ -24,3 +26,23 @@ Make targets:
 
 * `make build`: Builds the docker image.
 * `make push`: Push the image to the remote repository.
+
+### dind
+
+Docker image to build docker images in docker!
+
+| Base Image | Entrypoint | Extras | Dockerfile |
+|------------|------------|--------|------------|
+|`docker:stable-dind`| `dockerd-entrypoint.sh` | * curl<br> * make<br> * bash<br> * git<br> * python<br> * pip<br> * aws-cli | [Dockerfile](./dind/Dockerfile) |
+
+#### build image
+
+To build the image we have a [Makefile](./dind/Makefile), when running the targets we can set a different version for docker and the tag we create using environment variables:
+
+* `DOCKER_VERSION`: Docker version to use as base image. Default value: `stable`
+
+Make targets:
+
+* `make build`: Builds the docker image.
+* `make push`: Push the image to the remote repository.
+
