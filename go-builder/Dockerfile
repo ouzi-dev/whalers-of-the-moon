@@ -1,8 +1,8 @@
-ARG GOLANG_VERSION=1.13.0
+ARG GOLANG_VERSION=1.13.1
 
 FROM golang:${GOLANG_VERSION}-alpine3.10
 
-ARG GOLANGCI_LINT_VERSION=1.18.0
+ARG GOLANGCI_LINT_VERSION=1.21.0
 
 RUN apk add --no-cache --update curl make bash git gcc libc-dev nodejs npm zip
 
