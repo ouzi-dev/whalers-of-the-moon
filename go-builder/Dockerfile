@@ -4,7 +4,7 @@ FROM golang:${GOLANG_VERSION}-alpine3.10
 
 ARG GOLANGCI_LINT_VERSION=1.21.0
 
-RUN apk add --no-cache --update curl make bash git gcc libc-dev nodejs npm zip
+RUN apk add --no-cache --update curl make bash git gcc libc-dev nodejs npm zip openssh
 
 RUN echo "${GOLANGCI_LINT_VERSION}"
 
