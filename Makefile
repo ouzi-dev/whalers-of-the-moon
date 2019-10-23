@@ -11,3 +11,9 @@ kube-dind-push:
 
 helm-push:
 	$(MAKE) -C helm push	
+
+toolbox-build:
+	$(MAKE) -C toolbox build	
+
+toolbox-push:
+	$(MAKE) -C toolbox push	
