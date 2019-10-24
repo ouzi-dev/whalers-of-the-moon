@@ -1,14 +1,29 @@
-# Whalers of the moon
+# Whalers of the moon <!-- omit in toc -->
 
-Just a bunch of dockerfiles
+Just a bunch of dockerfiles - hosted in https://quay.io/organization/ouzi 
 
 ![Whalers of the moon](img/whalers.jpg)
+
+- [Dockerfiles](#dockerfiles)
+  - [go-builder](#go-builder)
+    - [build image](#build-image)
+  - [dind](#dind)
+    - [build image](#build-image-1)
+  - [kube-dind](#kube-dind)
+    - [build image](#build-image-2)
+    - [Container example with Prow](#container-example-with-prow)
+  - [helm](#helm)
+    - [build image](#build-image-3)
+  - [toolbox](#toolbox)
+    - [build image](#build-image-4)
 
 ## Dockerfiles
 
 ### go-builder
 
 Docker image to build with go!
+
+[![Docker Repository on Quay](https://quay.io/repository/ouzi/go-builder/status "Docker Repository on Quay")](https://quay.io/repository/ouzi/go-builder)
 
 | Base Image | Entrypoint | Extras | Dockerfile |
 |------------|------------|--------|------------|
@@ -33,6 +48,8 @@ You can use `make go-builder-push` from the root folder and it will build the im
 
 Docker image to build docker images in docker!
 
+[![Docker Repository on Quay](https://quay.io/repository/ouzi/dind/status "Docker Repository on Quay")](https://quay.io/repository/ouzi/dind)
+
 | Base Image | Entrypoint | Extras | Dockerfile |
 |------------|------------|--------|------------|
 |`docker:stable-dind`| `dockerd-entrypoint.sh` | * curl<br> * make<br> * bash<br> * git<br> * python<br> * pip<br> * aws-cli | [Dockerfile](./dind/Dockerfile) |
@@ -54,6 +71,8 @@ You can use `make dind-push` from the root folder and it will build the image wi
 ### kube-dind
 
 Docker image to build docker images in docker with Prow!
+
+[![Docker Repository on Quay](https://quay.io/repository/ouzi/kube-dind/status "Docker Repository on Quay")](https://quay.io/repository/ouzi/kube-dind)
 
 __IMPORTANT: This image is to use with Prow, and you need to use ALWAYS as start command: `runner.sh` and the container needs `privileged` permissions!__
 
@@ -89,3 +108,52 @@ containers:
   securityContext:
     privileged: true
 ```
+
+### helm
+
+Docker image for helm
+
+[![Docker Repository on Quay](https://quay.io/repository/ouzi/helm/status "Docker Repository on Quay")](https://quay.io/repository/ouzi/helm)
+
+| Base Image | Entrypoint | Extras | Dockerfile |
+|------------|------------|--------|------------|
+|`alpine:3.10`| None | None | [Dockerfile](./helm/Dockerfile) |
+
+#### build image
+
+To build the image we have a [Makefile](./helm/Makefile), when running the targets we can set a different version for go-builder and helm and the tag we create using environment variables:
+
+* `HELM_VERSION`: Version to install of `helm`. Default value: `v3`
+* `TAG`: Tag for the docker image
+
+Make targets:
+
+* `make build`: Builds the docker image.
+* `make push`: Push the image to the remote repository.
+
+You can use `make toolbox-push` from the root folder and it will build the image with the default settings and push it to the repo.
+
+### toolbox
+
+Docker image that we use as a toolbox
+
+[![Docker Repository on Quay](https://quay.io/repository/ouzi/toolbox/status "Docker Repository on Quay")](https://quay.io/repository/ouzi/toolbox)
+
+| Base Image | Entrypoint | Extras | Dockerfile |
+|------------|------------|--------|------------|
+|`quay.io/ouzi/go-bulder`| None | * curl<br> * wget<br> * ca-certificates<br> * make<br> * bash<br> * git<br> * nodejs<br> * npm<br> * tar<br> * zip| [Dockerfile](./toolbox/Dockerfile) |
+
+#### build image
+
+To build the image we have a [Makefile](./toolbox/Makefile), when running the targets we can set a different version for go-builder and helm and the tag we create using environment variables:
+
+* `GO_BUILDER_TAG`: Go-Builder tag to use as base image. Default value: `1.13.1`
+* `HELM_VERSION`: Version to install of `helm`. Default value: `v3`
+* `TAG`: Tag for the docker image
+
+Make targets:
+
+* `make build`: Builds the docker image.
+* `make push`: Push the image to the remote repository.
+
+You can use `make toolbox-push` from the root folder and it will build the image with the default settings and push it to the repo.
