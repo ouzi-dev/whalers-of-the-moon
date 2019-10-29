@@ -141,7 +141,7 @@ Docker image that we use as a toolbox
 
 | Base Image | Entrypoint | Extras | Dockerfile |
 |------------|------------|--------|------------|
-|`quay.io/ouzi/go-bulder`| None | * curl<br> * wget<br> * ca-certificates<br> * make<br> * bash<br> * git<br> * nodejs<br> * npm<br> * tar<br> * zip| [Dockerfile](./toolbox/Dockerfile) |
+|`quay.io/ouzi/go-builder`| None | * curl<br> * wget<br> * ca-certificates<br> * make<br> * bash<br> * git<br> * nodejs<br> * npm<br> * tar<br> * zip<br> * helm<br> * kubectl| [Dockerfile](./toolbox/Dockerfile) |
 
 #### build image
 
@@ -149,6 +149,7 @@ To build the image we have a [Makefile](./toolbox/Makefile), when running the ta
 
 * `GO_BUILDER_TAG`: Go-Builder tag to use as base image. Default value: `1.13.1`
 * `HELM_VERSION`: Version to install of `helm`. Default value: `v3`
+* `KUBECTL_VERSION`: Version to install of `kubectl`. Default value: `v1.16.2`
 * `TAG`: Tag for the docker image
 
 Make targets:
