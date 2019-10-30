@@ -141,7 +141,7 @@ Docker image that we use as a toolbox
 
 | Base Image | Entrypoint | Extras | Dockerfile |
 |------------|------------|--------|------------|
-|`quay.io/ouzi/go-builder`| None | * curl<br> * wget<br> * ca-certificates<br> * make<br> * bash<br> * git<br> * nodejs<br> * npm<br> * tar<br> * zip<br> * helm<br> * kubectl| [Dockerfile](./toolbox/Dockerfile) |
+|`quay.io/ouzi/go-builder`| None | * curl<br> * wget<br> * ca-certificates<br> * make<br> * bash<br> * git<br> * nodejs<br> * npm<br> * tar<br> * zip<br> * helm<br> * kubectl<br> * jb<br> * gojsontoyaml<br> * jsonnet| [Dockerfile](./toolbox/Dockerfile) |
 
 #### build image
 

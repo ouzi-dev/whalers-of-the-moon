@@ -21,6 +21,12 @@ RUN apk add --purge --update \
   tar \
   && rm -rf /tmp/* /var/cache/apk/*
 
+RUN go get github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb
+
+RUN go get github.com/brancz/gojsontoyaml
+
+RUN go get github.com/google/go-jsonnet/cmd/jsonnet
+
 ADD https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl /usr/local/bin/kubectl
 
 RUN wget -q https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz \
