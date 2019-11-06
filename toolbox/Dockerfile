@@ -27,6 +27,7 @@ RUN apk add --purge --update \
   groff \
   less \
   mailcap \
+  jq \
   && pip install --upgrade awscli==${AWS_CLI_VERSION} \ 
   && apk -v --purge del py-pip \  
   && rm -rf /tmp/* /var/cache/apk/*
