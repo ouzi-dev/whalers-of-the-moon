@@ -1,10 +1,13 @@
-ARG GO_BUILDER_TAG=1.13.1
+ARG TF_VERSION
+ARG GO_BUILDER_TAG
+ARG HELM_VERSION
+
+FROM hashicorp/terraform:${TF_VERSION} AS TF
+FROM alpine/helm:${HELM_VERSION} AS HELM
 
 FROM quay.io/ouzi/go-builder:${GO_BUILDER_TAG}
 
-ARG HELM_VERSION=v3.0.0-beta.4
-
-ARG KUBECTL_VERSION=v1.16.2
+ARG AWS_CLI_VERSION
 
 RUN apk add --purge --update \
   ca-certificates \
@@ -19,18 +22,32 @@ RUN apk add --purge --update \
   npm \
   zip \
   tar \
+  python \
+  py-pip \
+  groff \
+  less \
+  mailcap \
+  && pip install --upgrade awscli==${AWS_CLI_VERSION} \ 
+  && apk -v --purge del py-pip \  
   && rm -rf /tmp/* /var/cache/apk/*
 
+COPY --from=HELM /usr/bin/helm /bin/helm
+COPY --from=TF /bin/terraform /bin/terraform
+
+ARG KUBECTL_VERSION
+RUN wget -q https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl \
+    && mv kubectl /bin/kubectl \
+    && chmod +x /bin/kubectl
+
 RUN go get github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb
-
 RUN go get github.com/brancz/gojsontoyaml
-
 RUN go get github.com/google/go-jsonnet/cmd/jsonnet
 
-ADD https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl /usr/local/bin/kubectl
+ARG GOTPL_VERSION
+RUN wget -q https://github.com/belitre/gotpl/releases/download/${GOTPL_VERSION}/gotpl-${GOTPL_VERSION}-linux-amd64.zip \
+    && unzip gotpl-${GOTPL_VERSION}-linux-amd64.zip \
+    && mv linux-amd64/gotpl /bin/gotpl \
+    && rm gotpl-${GOTPL_VERSION}-linux-amd64.zip \
+    && rm -rf linux-amd64
 
-RUN wget -q https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz \
-  && tar -xvf helm-${HELM_VERSION}-linux-amd64.tar.gz \
-  && mv linux-amd64/helm /usr/local/bin \
-  && rm -f /helm-${HELM_VERSION}-linux-amd64.tar.gz \
-  && chmod +x /usr/local/bin/kubectl
+WORKDIR /tmp
