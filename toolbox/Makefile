@@ -9,7 +9,6 @@ TF_VERSION ?= 0.12.13
 GOTPL_VERSION ?= v0.7
 CREDSTASH_VERSION ?= 1.16.1
 
-
 .PHONY: build push
 
 build:
