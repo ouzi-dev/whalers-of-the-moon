@@ -25,11 +25,11 @@ RUN apk add --virtual build-deps build-base libressl-dev libffi-dev python-dev \
   zip \
   tar \
   python \
+  py-pip \
   groff \
   less \
   mailcap \
   jq \
-  py-pip \
   && pip install --upgrade awscli==${AWS_CLI_VERSION} \ 
   && pip install --upgrade credstash==${CREDSTASH_VERSION} \ 
   && apk -v --purge del build-deps \  
