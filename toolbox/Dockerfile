@@ -10,7 +10,8 @@ FROM quay.io/ouzi/go-builder:${GO_BUILDER_TAG}
 ARG AWS_CLI_VERSION
 ARG CREDSTASH_VERSION
 
-RUN apk add --virtual build-deps build-base libressl-dev libffi-dev python-dev && apk add --purge --update \
+RUN apk add --virtual build-deps build-base python-dev libffi-dev && apk add --purge --update \
+  libressl-dev \
   ca-certificates \
   wget \
   git \
