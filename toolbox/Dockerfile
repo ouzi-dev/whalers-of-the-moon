@@ -8,8 +8,9 @@ FROM alpine/helm:${HELM_VERSION} AS HELM
 FROM quay.io/ouzi/go-builder:${GO_BUILDER_TAG}
 
 ARG AWS_CLI_VERSION
+ARG CREDSTASH_VERSION
 
-RUN apk add --purge --update \
+RUN apk add --virtual build-deps build-base libressl-dev libffi-dev python-dev && apk add --purge --update \
   ca-certificates \
   wget \
   git \
@@ -29,7 +30,8 @@ RUN apk add --purge --update \
   mailcap \
   jq \
   && pip install --upgrade awscli==${AWS_CLI_VERSION} \ 
-  && apk -v --purge del py-pip \  
+  && pip install --upgrade credstash==${CREDSTASH_VERSION} \ 
+  && apk -v --purge del build-deps \  
   && rm -rf /tmp/* /var/cache/apk/*
 
 COPY --from=HELM /usr/bin/helm /bin/helm
