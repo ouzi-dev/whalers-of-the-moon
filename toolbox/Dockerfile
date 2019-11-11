@@ -57,8 +57,7 @@ RUN wget -q https://github.com/belitre/gotpl/releases/download/${GOTPL_VERSION}/
 
 RUN wget -q https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${GCLOUD_VERSION}-linux-x86_64.tar.gz \
     && tar -xzf google-cloud-sdk-${GCLOUD_VERSION}-linux-x86_64.tar.gz -C /etc \
-    && bash /etc/google-cloud-sdk/install.sh \
-    && /etc/google-cloud-sdk/bin/gcloud components update
+    && bash /etc/google-cloud-sdk/install.sh 
 
 ENV PATH="${PATH}:/etc/google-cloud-sdk/bin"
 
