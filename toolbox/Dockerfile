@@ -9,6 +9,7 @@ FROM quay.io/ouzi/go-builder:${GO_BUILDER_TAG}
 
 ARG AWS_CLI_VERSION
 ARG CREDSTASH_VERSION
+ARG GCLOUD_VERSION
 
 RUN apk add --virtual build-deps build-base python-dev libffi-dev && apk add --purge --update \
   libressl-dev \
@@ -53,5 +54,12 @@ RUN wget -q https://github.com/belitre/gotpl/releases/download/${GOTPL_VERSION}/
     && mv linux-amd64/gotpl /bin/gotpl \
     && rm gotpl-${GOTPL_VERSION}-linux-amd64.zip \
     && rm -rf linux-amd64
+
+RUN wget -q https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${GCLOUD_VERSION}-linux-x86_64.tar.gz \
+    && tar -xzf google-cloud-sdk-${GCLOUD_VERSION}-linux-x86_64.tar.gz -C /etc \
+    && bash /etc/google-cloud-sdk/install.sh \
+    && /etc/google-cloud-sdk/bin/gcloud components update
+
+ENV PATH="${PATH}:/etc/google-cloud-sdk/bin"
 
 WORKDIR /tmp
