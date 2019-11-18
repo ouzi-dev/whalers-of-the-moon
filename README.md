@@ -157,4 +157,4 @@ Make targets:
 * `make build`: Builds the docker image.
 * `make push`: Push the image to the remote repository.
 
-You can use `make toolbox-push` from the root folder and it will build the image with the default settings and push it to the repo.
+You can use `make toolbox-push` from the root folder and it will build the image with the default settings and push it to the repo. 
