@@ -27,13 +27,13 @@ Docker image to build with go!
 
 | Base Image | Entrypoint | Extras | Dockerfile |
 |------------|------------|--------|------------|
-|`golang:1.13.1-alpine3.10`| None | * curl<br> * make<br> * bash<br> * git<br> * nodejs<br> * npn<br> * golagci-lint<br> * gox<br> * goimports<br> * gomock<br> * mockgen<br> * zip| [Dockerfile](./go-builder/Dockerfile) |
+|`golang:1.13.4-alpine3.10`| None | * curl<br> * make<br> * bash<br> * git<br> * nodejs<br> * npn<br> * golagci-lint<br> * gox<br> * goimports<br> * gomock<br> * mockgen<br> * zip| [Dockerfile](./go-builder/Dockerfile) |
 
 #### build image
 
 To build the image we have a [Makefile](./go-builder/Makefile), when running the targets we can set a different version for go, golangci-lint and the tag we create using environment variables:
 
-* `GOLANG_VERSION`: Go version to use as base image. Default value: `1.13.1`
+* `GOLANG_VERSION`: Go version to use as base image. Default value: `1.13.4`
 * `GOLANGCI_LINT_VERSION`: Version to install of `golangci-lint`. Default value: `1.21.0`
 * `TAG`: Tag for the docker image, if not set `TAG` will use the same value as `GOLANG_VERSION`
 
@@ -147,7 +147,7 @@ Docker image that we use as a toolbox
 
 To build the image we have a [Makefile](./toolbox/Makefile), when running the targets we can set a different version for go-builder and helm and the tag we create using environment variables:
 
-* `GO_BUILDER_TAG`: Go-Builder tag to use as base image. Default value: `1.13.1`
+* `GO_BUILDER_TAG`: Go-Builder tag to use as base image. Default value: `1.13.4`
 * `HELM_VERSION`: Version to install of `helm`. Default value: `v3`
 * `KUBECTL_VERSION`: Version to install of `kubectl`. Default value: `v1.16.2`
 * `TAG`: Tag for the docker image
