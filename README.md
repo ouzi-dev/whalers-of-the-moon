@@ -16,6 +16,8 @@ Just a bunch of dockerfiles - hosted in https://quay.io/organization/ouzi
     - [build image](#build-image-3)
   - [toolbox](#toolbox)
     - [build image](#build-image-4)
+  - [athena cli](#athena-cli)
+    - [build image](#build-image-5)
 
 ## Dockerfiles
 
@@ -158,3 +160,27 @@ Make targets:
 * `make push`: Push the image to the remote repository.
 
 You can use `make toolbox-push` from the root folder and it will build the image with the default settings and push it to the repo.
+
+### athena cli
+
+Docker image that we use as for running AWS Athena queries 
+
+[![Docker Repository on Quay](https://quay.io/repository/ouzi/athenacli/status "Docker Repository on Quay")](https://quay.io/repository/ouzi/athenacli)
+
+| Base Image | Entrypoint | Extras | Dockerfile |
+|------------|------------|--------|------------|
+|`python:3.8.0-alpine`| /usr/local/bin/athenacli | | [Dockerfile](./athenacli/Dockerfile) |
+
+#### build image
+
+To build the image we have a [Makefile](./athenacli/Makefile), when running the targets we can set a different version for the AthenaCLI and the tag we create using environment variables:
+
+* `ATHENACLI_VERSION`: Version to install of `[athenacli](https://github.com/dbcli/athenacli)`. Default value: `0.1.4`
+* `TAG`: Tag for the docker image
+
+Make targets:
+
+* `make build`: Builds the docker image.
+* `make push`: Push the image to the remote repository.
+
+You can use `make athenacli-push` from the root folder and it will build the image with the default settings and push it to the repo.

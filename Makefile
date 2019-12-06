@@ -18,6 +18,10 @@ helm-push:
 toolbox-push:
 	@$(MAKE) -C toolbox push	
 
+.PHONY: athenacli-push
+athenacli-push:
+	@$(MAKE) -C athenacli push	
+
 .PHONY: toolbox-build
 toolbox-build:
 	@$(MAKE) -C toolbox build	
@@ -37,3 +41,7 @@ kube-dind-build:
 .PHONY: helm-build
 helm-build:
 	@$(MAKE) -C helm build	
+
+.PHONY: athenacli-build
+athenacli-build:
+	@$(MAKE) -C athenacli build	
