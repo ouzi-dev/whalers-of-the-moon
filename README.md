@@ -125,13 +125,14 @@ Docker image for helm
 
 To build the image we have a [Makefile](./helm/Makefile), when running the targets we can set a different version for go-builder and helm and the tag we create using environment variables:
 
-* `HELM_VERSION`: Version to install of `helm`. Default value: `v3`
+* `HELM3_VERSION`: Version to install of `helm3`. Default value: `v3.0.1`
+* `HELM2_VERSION`: Version to install of `helm2`. Default value: `v2.16.1`
 * `TAG`: Tag for the docker image
 
 Make targets:
 
-* `make build`: Builds the docker image.
-* `make push`: Push the image to the remote repository.
+* `make build`: Builds the docker images.
+* `make push`: Push the images to the remote repository.
 
 You can use `make toolbox-push` from the root folder and it will build the image with the default settings and push it to the repo.
 
