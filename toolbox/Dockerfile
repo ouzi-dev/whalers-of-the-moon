@@ -33,6 +33,7 @@ RUN apk add --virtual build-deps build-base python-dev libffi-dev && apk add --p
   jq \
   && pip install --upgrade awscli==${AWS_CLI_VERSION} \ 
   && pip install --upgrade credstash==${CREDSTASH_VERSION} \
+  && npm config set unsafe-perm true \
   && npm install -g npm \
   && apk -v --purge del build-deps \  
   && rm -rf /tmp/* /var/cache/apk/*
