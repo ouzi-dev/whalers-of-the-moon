@@ -32,7 +32,8 @@ RUN apk add --virtual build-deps build-base python-dev libffi-dev && apk add --p
   mailcap \
   jq \
   && pip install --upgrade awscli==${AWS_CLI_VERSION} \ 
-  && pip install --upgrade credstash==${CREDSTASH_VERSION} \ 
+  && pip install --upgrade credstash==${CREDSTASH_VERSION} \
+  && npm install -g npm \
   && apk -v --purge del build-deps \  
   && rm -rf /tmp/* /var/cache/apk/*
 
