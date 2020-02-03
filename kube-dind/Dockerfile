@@ -1,3 +1,6 @@
+ARG HELM_VERSION
+
+FROM alpine/helm:${HELM_VERSION} AS HELM
 # Copyright 2017 The Kubernetes Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -73,3 +76,6 @@ RUN mkdir /docker-graph
 #
 
 COPY runner.sh /usr/local/bin
+
+# Add helm
+COPY --from=HELM /usr/bin/helm /bin/helm
