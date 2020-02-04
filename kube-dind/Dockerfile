@@ -44,7 +44,8 @@ RUN curl -sL https://deb.nodesource.com/setup_13.x | bash - && \
     apt-get install -y nodejs && \
     npm config set unsafe-perm true && \
     npm install -g npm && \
-    npm config set unsafe-perm false
+    npm config set unsafe-perm false && \
+    rm -rf /var/lib/apt/lists/*
 
 # Add the Docker apt-repository
 RUN curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg \
