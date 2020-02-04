@@ -36,6 +36,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     software-properties-common \
     build-essential \
     lsb-release && \
+    git && \
     rm -rf /var/lib/apt/lists/*
 
 RUN curl -sL https://deb.nodesource.com/setup_13.x | bash - && \
