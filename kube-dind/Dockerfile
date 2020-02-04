@@ -35,7 +35,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gnupg2 \
     software-properties-common \
     build-essential \
-    lsb-release && \
+    lsb-release \
     git && \
     rm -rf /var/lib/apt/lists/*
 
