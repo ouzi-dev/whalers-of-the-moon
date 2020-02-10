@@ -1,3 +1,6 @@
+ARG HELM_VERSION
+
+FROM alpine/helm:${HELM_VERSION} AS HELM
 # Copyright 2017 The Kubernetes Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,7 +35,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gnupg2 \
     software-properties-common \
     build-essential \
-    lsb-release && \
+    lsb-release \
+    git && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN curl -sL https://deb.nodesource.com/setup_13.x | bash - && \
+    apt-get update && \
+    apt-get install -y nodejs && \
+    npm config set unsafe-perm true && \
+    npm install -g npm && \
+    npm config set unsafe-perm false && \
     rm -rf /var/lib/apt/lists/*
 
 # Add the Docker apt-repository
@@ -66,3 +78,6 @@ RUN mkdir /docker-graph
 #
 
 COPY runner.sh /usr/local/bin
+
+# Add helm
+COPY --from=HELM /usr/bin/helm /bin/helm
