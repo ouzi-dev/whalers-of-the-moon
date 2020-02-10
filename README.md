@@ -18,6 +18,8 @@ Just a bunch of dockerfiles - hosted in https://quay.io/organization/ouzi
     - [build image](#build-image-4)
   - [athena cli](#athena-cli)
     - [build image](#build-image-5)
+  - [git-secret-scanner](#git-secret-scanner)
+    - [build image](#build-image-6)
 
 ## Dockerfiles
 
@@ -185,3 +187,28 @@ Make targets:
 * `make push`: Push the image to the remote repository.
 
 You can use `make athenacli-push` from the root folder and it will build the image with the default settings and push it to the repo.
+
+### git-secret-scanner
+
+Docker image that we use as for scanning repositories for secrets that should not be committed 
+
+[![Docker Repository on Quay](https://quay.io/repository/ouzi/git-secret-scanner/status "Docker Repository on Quay")](https://quay.io/repository/ouzi/git-secret-scanner)
+
+| Base Image | Entrypoint | Extras | Dockerfile |
+|------------|------------|--------|------------|
+|`alpine:3.11`| N/A | * make<br> * bash<br> * git<br> * [git](https://github.com/awslabs/git-secrets)<br>  | [Dockerfile](./git-secret-scanner/Dockerfile) |
+
+
+#### build image
+
+To build the image we have a [Makefile](./git-secret-scanner/Makefile), when running the targets we can set a different version for the AWS Git Secrets tool and the tag we create using environment variables:
+
+* `AWS_GIT_SECRETS_VERSION`: Version to install of `[awslabs/git-secrets](https://github.com/awslabs/git-secrets)`. Default value: `1.3.0`
+* `TAG`: Tag for the docker image
+
+Make targets:
+
+* `make build`: Builds the docker image.
+* `make push`: Push the image to the remote repository.
+
+You can use `make git-secret-scanner-push` from the root folder and it will build the image with the default settings and push it to the repo.

@@ -22,6 +22,10 @@ toolbox-push:
 athenacli-push:
 	@$(MAKE) -C athenacli push	
 
+.PHONY: git-secret-scanner-push
+git-secret-scanner-push:
+	@$(MAKE) -C  git-secret-scanner push	
+
 .PHONY: toolbox-build
 toolbox-build:
 	@$(MAKE) -C toolbox build	
@@ -45,3 +49,7 @@ helm-build:
 .PHONY: athenacli-build
 athenacli-build:
 	@$(MAKE) -C athenacli build	
+
+.PHONY: git-secret-scanner-build
+git-secret-scanner-build:
+	@$(MAKE) -C  git-secret-scanner build	
