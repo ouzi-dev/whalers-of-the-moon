@@ -1,5 +1,5 @@
 REPO := quay.io/ouzi/git-secret-scanner
-TAG ?= 0.0.1
+TAG ?= 0.0.3
 
 AWS_GIT_SECRETS_VERSION ?= 1.3.0
 
