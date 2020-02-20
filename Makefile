@@ -26,6 +26,10 @@ athenacli-push:
 git-secret-scanner-push:
 	@$(MAKE) -C  git-secret-scanner push	
 
+.PHONY: python-builder-push
+python-builder-push:
+	@$(MAKE) -C python-builder push
+
 .PHONY: toolbox-build
 toolbox-build:
 	@$(MAKE) -C toolbox build	
@@ -52,4 +56,8 @@ athenacli-build:
 
 .PHONY: git-secret-scanner-build
 git-secret-scanner-build:
-	@$(MAKE) -C  git-secret-scanner build	
+	@$(MAKE) -C  git-secret-scanner build
+
+.PHONY: python-builder-build
+python-builder-build:
+	@$(MAKE) -C python-builder build
