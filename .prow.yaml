@@ -1,0 +1,281 @@
+presubmits:
+  - name: build-kube-dind-image
+    labels:
+      preset-docker: "true"
+    context: build-kube-dind-image
+    decorate: true
+    clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
+    always_run: false 
+    skip_report: false 
+    max_concurrency: 1 
+    trigger: "(?m)build-kube-dind-image( please)?" 
+    rerun_command: "build-kube-dind-image"
+    run_if_changed: 'kube-dind/'
+    spec:
+      nodeSelector:
+        group_name: image-builder
+      tolerations:
+      - key: "imagebuilderonly"
+        value: "true"
+        operator: "Equal"
+        effect: "PreferNoSchedule" 
+      containers:
+        - name: "build-kube-dind-image"
+          imagePullPolicy: IfNotPresent
+          image: quay.io/ouzi/kube-dind:18.09
+          command:
+            - runner.sh
+          args:
+            - make
+            - kube-dind-push
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              memory: "2Gi"
+              cpu: 1
+  - name: build-dind-image
+    labels:
+      preset-docker: "true"
+    context: build-dind-image
+    decorate: true 
+    clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
+    always_run: false 
+    skip_report: false 
+    max_concurrency: 1 
+    trigger: "(?m)build-dind-image( please)?" 
+    rerun_command: "build-dind-image"
+    run_if_changed: 'dind/'
+    spec:
+      nodeSelector:
+        group_name: image-builder
+      tolerations:
+      - key: "imagebuilderonly"
+        value: "true"
+        operator: "Equal"
+        effect: "PreferNoSchedule"  
+      containers:
+        - name: "build-dind-image"
+          imagePullPolicy: IfNotPresent
+          image: quay.io/ouzi/kube-dind:18.09
+          command:
+            - runner.sh
+          args:
+            - make
+            - dind-push
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              memory: "2Gi"
+              cpu: 1
+  - name: build-go-builder-image
+    labels:
+      preset-docker: "true"
+    context: build-go-builder-image
+    decorate: true
+    clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
+    always_run: false 
+    skip_report: false 
+    max_concurrency: 1 
+    trigger: "(?m)build-go-builder-image( please)?" 
+    rerun_command: "build-go-builder-image"
+    run_if_changed: 'go-builder/'
+    spec:
+      nodeSelector:
+        group_name: image-builder
+      tolerations:
+      - key: "imagebuilderonly"
+        value: "true"
+        operator: "Equal"
+        effect: "PreferNoSchedule"  
+      containers:
+        - name: "build-go-builder-image"
+          imagePullPolicy: IfNotPresent
+          image: quay.io/ouzi/kube-dind:18.09
+          command:
+            - runner.sh
+          args:
+            - make
+            - go-builder-push
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              memory: "2Gi"
+              cpu: 1
+  - name: build-helm-image
+    labels:
+      preset-docker: "true"
+    context: build-helm-image
+    decorate: true
+    clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
+    always_run: false 
+    skip_report: false 
+    max_concurrency: 1 
+    trigger: "(?m)build-helm-image( please)?" 
+    rerun_command: "build-helm-image"
+    run_if_changed: 'helm/'
+    spec:
+      nodeSelector:
+        group_name: image-builder
+      tolerations:
+      - key: "imagebuilderonly"
+        value: "true"
+        operator: "Equal"
+        effect: "PreferNoSchedule" 
+      containers:
+        - name: "build-helm-image"
+          imagePullPolicy: IfNotPresent
+          image: quay.io/ouzi/kube-dind:18.09
+          command:
+            - runner.sh
+          args:
+            - make
+            - helm-push
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              memory: "2Gi"
+              cpu: 1
+  - name: build-toolbox-image
+    labels:
+      preset-docker: "true"
+    context: build-toolbox-image
+    decorate: true
+    clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
+    always_run: false 
+    skip_report: false 
+    max_concurrency: 1 
+    trigger: "(?m)build-toolbox-image( please)?" 
+    rerun_command: "build-toolbox-image"
+    run_if_changed: 'toolbox/'
+    spec:
+      nodeSelector:
+        group_name: image-builder
+      tolerations:
+      - key: "imagebuilderonly"
+        value: "true"
+        operator: "Equal"
+        effect: "PreferNoSchedule" 
+      containers:
+        - name: "build-toolbox-image"
+          imagePullPolicy: IfNotPresent
+          image: quay.io/ouzi/kube-dind:18.09
+          command:
+            - runner.sh
+          args:
+            - make
+            - toolbox-push
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              memory: "2Gi"
+              cpu: 1
+  - name: build-athenacli-image
+    labels:
+      preset-docker: "true"
+    context: build-athenacli-image
+    decorate: true
+    clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
+    always_run: false 
+    skip_report: false 
+    max_concurrency: 1 
+    trigger: "(?m)build-athenacli-image( please)?" 
+    rerun_command: "build-athenacli-image"
+    run_if_changed: 'athenacli/'
+    spec:
+      nodeSelector:
+        group_name: image-builder
+      tolerations:
+      - key: "imagebuilderonly"
+        value: "true"
+        operator: "Equal"
+        effect: "PreferNoSchedule" 
+      containers:
+        - name: "build-athenacli-image"
+          imagePullPolicy: IfNotPresent
+          image: quay.io/ouzi/kube-dind:18.09
+          command:
+            - runner.sh
+          args:
+            - make
+            - athenacli-push
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              memory: "2Gi"
+              cpu: 1
+  - name: build-git-secret-scanner-image
+    labels:
+      preset-docker: "true"
+    context: build-git-secret-scanner-image
+    decorate: true
+    clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
+    always_run: false 
+    skip_report: false 
+    max_concurrency: 1 
+    trigger: "(?m)build-git-secret-scanner-image( please)?" 
+    rerun_command: "build-git-secret-scanner-image"
+    run_if_changed: 'git-secret-scanner/'
+    spec:
+      nodeSelector:
+        group_name: image-builder
+      tolerations:
+      - key: "imagebuilderonly"
+        value: "true"
+        operator: "Equal"
+        effect: "PreferNoSchedule" 
+      containers:
+        - name: "build-git-secret-scanner-image"
+          imagePullPolicy: IfNotPresent
+          image: quay.io/ouzi/kube-dind:18.09
+          command:
+            - runner.sh
+          args:
+            - make
+            - git-secret-scanner-push
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              memory: "2Gi"
+              cpu: 1
+  - name: build-python-builder-image
+    labels:
+      preset-docker: "true"
+    context: build-python-builder-image
+    decorate: true
+    clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
+    always_run: false 
+    skip_report: false 
+    max_concurrency: 1 
+    trigger: "(?m)build-python-builder-image( please)?" 
+    rerun_command: "build-python-builder-image"
+    run_if_changed: 'python-builder/'
+    spec:
+      nodeSelector:
+        group_name: image-builder
+      tolerations:
+      - key: "imagebuilderonly"
+        value: "true"
+        operator: "Equal"
+        effect: "PreferNoSchedule"  
+      containers:
+        - name: "build-python-builder-image"
+          imagePullPolicy: IfNotPresent
+          image: quay.io/ouzi/kube-dind:18.09
+          command:
+            - runner.sh
+          args:
+            - make
+            - python-builder-push
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              memory: "2Gi"
+              cpu: 1
