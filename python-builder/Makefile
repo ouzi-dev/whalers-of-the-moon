@@ -1,4 +1,4 @@
-PYTHON_VERSION ?= 2.7.17
+PYTHON_VERSION ?= 3.8.1
 
 REPO := quay.io/ouzi/python-builder
 
