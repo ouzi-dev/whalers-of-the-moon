@@ -1,8 +1,8 @@
-ARG GOLANG_VERSION=1.13.1
+ARG GOLANG_VERSION
 
-FROM golang:${GOLANG_VERSION}-alpine3.10
+FROM golang:${GOLANG_VERSION}-alpine3.11
 
-ARG GOLANGCI_LINT_VERSION=1.21.0
+ARG GOLANGCI_LINT_VERSION
 
 RUN apk add --no-cache --update curl make bash git gcc libc-dev nodejs npm zip openssh \
     && npm config set unsafe-perm true \
