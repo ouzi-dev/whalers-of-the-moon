@@ -153,7 +153,7 @@ Docker image that we use as a toolbox
 To build the image we have a [Makefile](./toolbox/Makefile), when running the targets we can set a different version for go-builder and helm and the tag we create using environment variables:
 
 * `GO_BUILDER_TAG`: Go-Builder tag to use as base image. Default value: `1.13.8`
-* `HELM_VERSION`: Version to install of `helm`. Default value: `v3`
+* `HELM_VERSION`: Version to install of `helm`. Default value: `v3.1.1`
 * `KUBECTL_VERSION`: Version to install of `kubectl`. Default value: `v1.16.2`
 * `TAG`: Tag for the docker image
 
