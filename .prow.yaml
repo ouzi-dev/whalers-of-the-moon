@@ -87,7 +87,7 @@ postsubmits:
             - runner.sh
           args:
             - make
-            - go-builder-build
+            - go-builder-push
           securityContext:
             privileged: true
           resources:
