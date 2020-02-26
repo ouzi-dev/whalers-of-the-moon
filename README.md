@@ -121,14 +121,14 @@ Docker image for helm
 
 | Base Image    | Entrypoint | Extras | Dockerfile                      |
 | ------------- | ---------- | ------ | ------------------------------- |
-| `alpine:3.10` | None       | None   | [Dockerfile](./helm/Dockerfile) |
+| `alpine:3.11` | None       | None   | [Dockerfile](./helm/Dockerfile) |
 
 #### build image
 
 To build the image we have a [Makefile](./helm/Makefile), when running the targets we can set a different version for go-builder and helm and the tag we create using environment variables:
 
-* `HELM3_VERSION`: Version to install of `helm3`. Default value: `v3.0.1`
-* `HELM2_VERSION`: Version to install of `helm2`. Default value: `v2.16.1`
+* `HELM3_VERSION`: Version to install of `helm3`. Default value: `v3.1.1`
+* `HELM2_VERSION`: Version to install of `helm2`. Default value: `v2.16.3`
 * `TAG`: Tag for the docker image
 
 Make targets:
