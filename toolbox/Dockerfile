@@ -1,44 +1,46 @@
 ARG TF_VERSION
 ARG GO_BUILDER_TAG
-ARG HELM_VERSION
 
 FROM hashicorp/terraform:${TF_VERSION} AS TF
-FROM alpine/helm:${HELM_VERSION} AS HELM
 
 FROM quay.io/ouzi/go-builder:${GO_BUILDER_TAG}
 
 ARG AWS_CLI_VERSION
 ARG CREDSTASH_VERSION
 ARG GCLOUD_VERSION
+ARG HELM_VERSION
 
 RUN apk add --virtual build-deps build-base python-dev libffi-dev && apk add --purge --update \
-  libressl-dev \
-  ca-certificates \
-  wget \
-  git \
-  curl \
-  wget \
-  openssl \
-  bash \
-  make \
-  nodejs \
-  npm \
-  zip \
-  tar \
-  python \
-  py-pip \
-  groff \
-  less \
-  mailcap \
-  jq \
-  && pip install --upgrade awscli==${AWS_CLI_VERSION} \ 
-  && pip install --upgrade credstash==${CREDSTASH_VERSION} \
-  && npm config set unsafe-perm true \
-  && npm install -g npm \
-  && apk -v --purge del build-deps \  
-  && rm -rf /tmp/* /var/cache/apk/*
+    libressl-dev \
+    ca-certificates \
+    wget \
+    git \
+    curl \
+    wget \
+    openssl \
+    bash \
+    make \
+    nodejs \
+    npm \
+    zip \
+    tar \
+    python \
+    py-pip \
+    groff \
+    less \
+    mailcap \
+    jq \
+    && pip install --upgrade awscli==${AWS_CLI_VERSION} \ 
+    && pip install --upgrade credstash==${CREDSTASH_VERSION} \
+    && npm config set unsafe-perm true \
+    && npm install -g npm \
+    && wget -q https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz \
+    && tar -xvf helm-${HELM_VERSION}-linux-amd64.tar.gz \
+    && mv linux-amd64/helm /usr/local/bin \
+    && apk -v --purge del build-deps \  
+    && rm -rf /tmp/* /var/cache/apk/* \
+    && rm -f /helm-${HELM_VERSION}-linux-amd64.tar.gz
 
-COPY --from=HELM /usr/bin/helm /bin/helm
 COPY --from=TF /bin/terraform /bin/terraform
 
 ARG KUBECTL_VERSION
