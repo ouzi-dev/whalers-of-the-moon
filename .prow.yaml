@@ -7,6 +7,7 @@ postsubmits:
     max_concurrency: 1 
     branches:
       - master
+    run_if_changed: 'kube-dind/'
     spec:
       nodeSelector:
         group_name: image-builder
