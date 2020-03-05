@@ -63,6 +63,10 @@ RUN wget -q https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cl
     && tar -xzf google-cloud-sdk-${GCLOUD_VERSION}-linux-x86_64.tar.gz -C /etc \
     && bash /etc/google-cloud-sdk/install.sh 
 
+ARG YQ_VERSION
+RUN wget -O /bin/yq "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64" \
+    && chmod +x /bin/yq
+
 ENV PATH="${PATH}:/etc/google-cloud-sdk/bin"
 
 WORKDIR /tmp

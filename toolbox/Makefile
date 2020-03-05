@@ -1,5 +1,5 @@
 REPO := quay.io/ouzi/toolbox
-TAG ?= 0.1.13
+TAG ?= 0.1.14
 
 GO_BUILDER_TAG ?= 1.13.8
 HELM_VERSION ?= v3.1.1
@@ -9,6 +9,7 @@ TF_VERSION ?= 0.12.20
 GOTPL_VERSION ?= v0.7
 CREDSTASH_VERSION ?= 1.16.1
 GCLOUD_VERSION ?= 278.0.0
+YQ_VERSION ?= 3.2.1
 
 .PHONY: build push
 
@@ -22,6 +23,7 @@ build:
 	--build-arg GOTPL_VERSION=$(GOTPL_VERSION) \
 	--build-arg CREDSTASH_VERSION=$(CREDSTASH_VERSION) \
 	--build-arg GCLOUD_VERSION=$(GCLOUD_VERSION) \
+	--build-arg YQ_VERSION=$(YQ_VERSION) \
 	-t $(REPO):$(TAG) .
 	
 	@docker tag $(REPO):$(TAG) $(REPO):latest
