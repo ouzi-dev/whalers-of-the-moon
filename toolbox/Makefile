@@ -1,7 +1,7 @@
 REPO := quay.io/ouzi/toolbox
-TAG ?= 0.1.15
+TAG ?= 0.1.16
 
-GO_BUILDER_TAG ?= 1.13.8
+GO_BUILDER_TAG ?= 1.14.0
 HELM_VERSION ?= v3.1.1
 KUBECTL_VERSION ?= v1.17.2
 AWS_CLI_VERSION ?= 1.17.9
