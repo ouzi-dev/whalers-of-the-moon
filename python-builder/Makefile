@@ -6,9 +6,10 @@ TAG ?= $(PYTHON_VERSION)
 
 .PHONY: build push
 
-build: 
-	@docker build --build-arg PYTHON_VERSION=$(PYTHON_VERSION) \
-		-t $(REPO):$(TAG) .
+build:
+	@gcloud builds submit --config cloudbuild-build.yaml \
+				--substitutions=_TAG_VERSION=$(TAG),_QUAY_REPO=$(REPO),_PYTHON_VERSION="$(PYTHON_VERSION)"
 
-push: build
-	@docker push $(REPO):$(TAG)
+push:
+	@gcloud builds submit --config cloudbuild-push.yaml \
+				--substitutions=_TAG_VERSION=$(TAG),_QUAY_REPO=$(REPO),_PYTHON_VERSION="$(PYTHON_VERSION)"

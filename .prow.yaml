@@ -1,7 +1,7 @@
 postsubmits:
-  - name: build-kube-dind-image
+  - name: push-kube-dind-image
     labels:
-      preset-docker: "true"
+      preset-gcloud-testinfra-prow: "true"
     decorate: true
     clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
     max_concurrency: 1 
@@ -9,31 +9,18 @@ postsubmits:
       - master
     run_if_changed: 'kube-dind/'
     spec:
-      nodeSelector:
-        group_name: image-builder
-      tolerations:
-      - key: "imagebuilderonly"
-        value: "true"
-        operator: "Equal"
-        effect: "PreferNoSchedule" 
       containers:
         - name: "build-kube-dind-image"
           imagePullPolicy: IfNotPresent
-          image: quay.io/ouzi/kube-dind:18.09
+          image: quay.io/ouzi/toolbox:0.1.16
           command:
-            - runner.sh
-          args:
             - make
+          args:
+            - init-gcloud-cli
             - kube-dind-push
-          securityContext:
-            privileged: true
-          resources:
-            requests:
-              memory: "2Gi"
-              cpu: 1
-  - name: build-dind-image
+  - name: push-dind-image
     labels:
-      preset-docker: "true"
+      preset-gcloud-testinfra-prow: "true"
     decorate: true
     clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
     max_concurrency: 1 
@@ -41,31 +28,18 @@ postsubmits:
       - master
     run_if_changed: 'dind/'
     spec:
-      nodeSelector:
-        group_name: image-builder
-      tolerations:
-      - key: "imagebuilderonly"
-        value: "true"
-        operator: "Equal"
-        effect: "PreferNoSchedule"  
       containers:
         - name: "build-dind-image"
           imagePullPolicy: IfNotPresent
-          image: quay.io/ouzi/kube-dind:18.09
+          image: quay.io/ouzi/toolbox:0.1.16
           command:
-            - runner.sh
-          args:
             - make
+          args:
+            - init-gcloud-cli
             - dind-push
-          securityContext:
-            privileged: true
-          resources:
-            requests:
-              memory: "2Gi"
-              cpu: 1
-  - name: build-go-builder-image
+  - name: push-go-builder-image
     labels:
-      preset-docker: "true"
+      preset-gcloud-testinfra-prow: "true"
     decorate: true
     clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
     max_concurrency: 1 
@@ -73,31 +47,18 @@ postsubmits:
       - master
     run_if_changed: 'go-builder/'
     spec:
-      nodeSelector:
-        group_name: image-builder
-      tolerations:
-      - key: "imagebuilderonly"
-        value: "true"
-        operator: "Equal"
-        effect: "PreferNoSchedule"  
       containers:
         - name: "build-go-builder-image"
           imagePullPolicy: IfNotPresent
-          image: quay.io/ouzi/kube-dind:18.09
+          image: quay.io/ouzi/toolbox:0.1.16
           command:
-            - runner.sh
-          args:
             - make
+          args:
+            - init-gcloud-cli
             - go-builder-push
-          securityContext:
-            privileged: true
-          resources:
-            requests:
-              memory: "2Gi"
-              cpu: 1
-  - name: build-helm-image
+  - name: push-helm-image
     labels:
-      preset-docker: "true"
+      preset-gcloud-testinfra-prow: "true"
     decorate: true
     clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
     max_concurrency: 1 
@@ -105,31 +66,18 @@ postsubmits:
       - master
     run_if_changed: 'helm/'
     spec:
-      nodeSelector:
-        group_name: image-builder
-      tolerations:
-      - key: "imagebuilderonly"
-        value: "true"
-        operator: "Equal"
-        effect: "PreferNoSchedule" 
       containers:
         - name: "build-helm-image"
           imagePullPolicy: IfNotPresent
-          image: quay.io/ouzi/kube-dind:18.09
+          image: quay.io/ouzi/toolbox:0.1.16
           command:
-            - runner.sh
-          args:
             - make
+          args:
+            - init-gcloud-cli
             - helm-push
-          securityContext:
-            privileged: true
-          resources:
-            requests:
-              memory: "2Gi"
-              cpu: 1
-  - name: build-toolbox-image
+  - name: push-toolbox-image
     labels:
-      preset-docker: "true"
+      preset-gcloud-testinfra-prow: "true"
     decorate: true
     clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
     max_concurrency: 1 
@@ -137,31 +85,18 @@ postsubmits:
       - master
     run_if_changed: 'toolbox/'
     spec:
-      nodeSelector:
-        group_name: image-builder
-      tolerations:
-      - key: "imagebuilderonly"
-        value: "true"
-        operator: "Equal"
-        effect: "PreferNoSchedule" 
       containers:
         - name: "build-toolbox-image"
           imagePullPolicy: IfNotPresent
-          image: quay.io/ouzi/kube-dind:18.09
+          image: quay.io/ouzi/toolbox:0.1.16
           command:
-            - runner.sh
-          args:
             - make
+          args:
+            - init-gcloud-cli
             - toolbox-push
-          securityContext:
-            privileged: true
-          resources:
-            requests:
-              memory: "2Gi"
-              cpu: 1
-  - name: build-athenacli-image
+  - name: push-athenacli-image
     labels:
-      preset-docker: "true"
+      preset-gcloud-testinfra-prow: "true"
     decorate: true
     clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
     max_concurrency: 1 
@@ -169,31 +104,18 @@ postsubmits:
       - master
     run_if_changed: 'athenacli/'
     spec:
-      nodeSelector:
-        group_name: image-builder
-      tolerations:
-      - key: "imagebuilderonly"
-        value: "true"
-        operator: "Equal"
-        effect: "PreferNoSchedule" 
       containers:
         - name: "build-athenacli-image"
           imagePullPolicy: IfNotPresent
-          image: quay.io/ouzi/kube-dind:18.09
+          image: quay.io/ouzi/toolbox:0.1.16
           command:
-            - runner.sh
-          args:
             - make
+          args:
+            - init-gcloud-cli
             - athenacli-push
-          securityContext:
-            privileged: true
-          resources:
-            requests:
-              memory: "2Gi"
-              cpu: 1
-  - name: build-git-secret-scanner-image
+  - name: push-git-secret-scanner-image
     labels:
-      preset-docker: "true"
+      preset-gcloud-testinfra-prow: "true"
     decorate: true
     clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
     max_concurrency: 1 
@@ -201,31 +123,18 @@ postsubmits:
       - master
     run_if_changed: 'git-secret-scanner/'
     spec:
-      nodeSelector:
-        group_name: image-builder
-      tolerations:
-      - key: "imagebuilderonly"
-        value: "true"
-        operator: "Equal"
-        effect: "PreferNoSchedule" 
       containers:
         - name: "build-git-secret-scanner-image"
           imagePullPolicy: IfNotPresent
-          image: quay.io/ouzi/kube-dind:18.09
+          image: quay.io/ouzi/toolbox:0.1.16
           command:
-            - runner.sh
-          args:
             - make
+          args:
+            - init-gcloud-cli
             - git-secret-scanner-push
-          securityContext:
-            privileged: true
-          resources:
-            requests:
-              memory: "2Gi"
-              cpu: 1
-  - name: build-python-builder-image
+  - name: push-python-builder-image
     labels:
-      preset-docker: "true"
+      preset-gcloud-testinfra-prow: "true"
     decorate: true
     clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
     max_concurrency: 1 
@@ -233,33 +142,20 @@ postsubmits:
       - master
     run_if_changed: 'python-builder/'
     spec:
-      nodeSelector:
-        group_name: image-builder
-      tolerations:
-      - key: "imagebuilderonly"
-        value: "true"
-        operator: "Equal"
-        effect: "PreferNoSchedule"  
       containers:
         - name: "build-python-builder-image"
           imagePullPolicy: IfNotPresent
-          image: quay.io/ouzi/kube-dind:18.09
+          image: quay.io/ouzi/toolbox:0.1.16
           command:
-            - runner.sh
-          args:
             - make
+          args:
+            - init-gcloud-cli
             - python-builder-push
-          securityContext:
-            privileged: true
-          resources:
-            requests:
-              memory: "2Gi"
-              cpu: 1
 
 presubmits:
   - name: build-kube-dind-image
     labels:
-      preset-docker: "true"
+      preset-gcloud-testinfra-prow: "true"
     context: build-kube-dind-image
     decorate: true
     clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
@@ -270,31 +166,18 @@ presubmits:
     rerun_command: "build-kube-dind-image"
     run_if_changed: 'kube-dind/'
     spec:
-      nodeSelector:
-        group_name: image-builder
-      tolerations:
-      - key: "imagebuilderonly"
-        value: "true"
-        operator: "Equal"
-        effect: "PreferNoSchedule" 
       containers:
         - name: "build-kube-dind-image"
           imagePullPolicy: IfNotPresent
-          image: quay.io/ouzi/kube-dind:18.09
+          image: quay.io/ouzi/toolbox:0.1.16
           command:
-            - runner.sh
-          args:
             - make
+          args:
+            - init-gcloud-cli
             - kube-dind-build
-          securityContext:
-            privileged: true
-          resources:
-            requests:
-              memory: "2Gi"
-              cpu: 1
   - name: build-dind-image
     labels:
-      preset-docker: "true"
+      preset-gcloud-testinfra-prow: "true"
     context: build-dind-image
     decorate: true 
     clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
@@ -305,31 +188,18 @@ presubmits:
     rerun_command: "build-dind-image"
     run_if_changed: 'dind/'
     spec:
-      nodeSelector:
-        group_name: image-builder
-      tolerations:
-      - key: "imagebuilderonly"
-        value: "true"
-        operator: "Equal"
-        effect: "PreferNoSchedule"  
       containers:
         - name: "build-dind-image"
           imagePullPolicy: IfNotPresent
-          image: quay.io/ouzi/kube-dind:18.09
+          image: quay.io/ouzi/toolbox:0.1.16
           command:
-            - runner.sh
-          args:
             - make
+          args:
+            - init-gcloud-cli
             - dind-build
-          securityContext:
-            privileged: true
-          resources:
-            requests:
-              memory: "2Gi"
-              cpu: 1
   - name: build-go-builder-image
     labels:
-      preset-docker: "true"
+      preset-gcloud-testinfra-prow: "true"
     context: build-go-builder-image
     decorate: true
     clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
@@ -340,31 +210,18 @@ presubmits:
     rerun_command: "build-go-builder-image"
     run_if_changed: 'go-builder/'
     spec:
-      nodeSelector:
-        group_name: image-builder
-      tolerations:
-      - key: "imagebuilderonly"
-        value: "true"
-        operator: "Equal"
-        effect: "PreferNoSchedule"  
       containers:
         - name: "build-go-builder-image"
           imagePullPolicy: IfNotPresent
-          image: quay.io/ouzi/kube-dind:18.09
+          image: quay.io/ouzi/toolbox:0.1.16
           command:
-            - runner.sh
-          args:
             - make
+          args:
+            - init-gcloud-cli
             - go-builder-build
-          securityContext:
-            privileged: true
-          resources:
-            requests:
-              memory: "2Gi"
-              cpu: 1
   - name: build-helm-image
     labels:
-      preset-docker: "true"
+      preset-gcloud-testinfra-prow: "true"
     context: build-helm-image
     decorate: true
     clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
@@ -375,31 +232,18 @@ presubmits:
     rerun_command: "build-helm-image"
     run_if_changed: 'helm/'
     spec:
-      nodeSelector:
-        group_name: image-builder
-      tolerations:
-      - key: "imagebuilderonly"
-        value: "true"
-        operator: "Equal"
-        effect: "PreferNoSchedule" 
       containers:
         - name: "build-helm-image"
           imagePullPolicy: IfNotPresent
-          image: quay.io/ouzi/kube-dind:18.09
+          image: quay.io/ouzi/toolbox:0.1.16
           command:
-            - runner.sh
-          args:
             - make
+          args:
+            - init-gcloud-cli
             - helm-build
-          securityContext:
-            privileged: true
-          resources:
-            requests:
-              memory: "2Gi"
-              cpu: 1
   - name: build-toolbox-image
     labels:
-      preset-docker: "true"
+      preset-gcloud-testinfra-prow: "true"
     context: build-toolbox-image
     decorate: true
     clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
@@ -410,31 +254,18 @@ presubmits:
     rerun_command: "build-toolbox-image"
     run_if_changed: 'toolbox/'
     spec:
-      nodeSelector:
-        group_name: image-builder
-      tolerations:
-      - key: "imagebuilderonly"
-        value: "true"
-        operator: "Equal"
-        effect: "PreferNoSchedule" 
       containers:
         - name: "build-toolbox-image"
           imagePullPolicy: IfNotPresent
-          image: quay.io/ouzi/kube-dind:18.09
+          image: quay.io/ouzi/toolbox:0.1.16
           command:
-            - runner.sh
-          args:
             - make
+          args:
+            - init-gcloud-cli
             - toolbox-build
-          securityContext:
-            privileged: true
-          resources:
-            requests:
-              memory: "2Gi"
-              cpu: 1
   - name: build-athenacli-image
     labels:
-      preset-docker: "true"
+      preset-gcloud-testinfra-prow: "true"
     context: build-athenacli-image
     decorate: true
     clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
@@ -445,31 +276,18 @@ presubmits:
     rerun_command: "build-athenacli-image"
     run_if_changed: 'athenacli/'
     spec:
-      nodeSelector:
-        group_name: image-builder
-      tolerations:
-      - key: "imagebuilderonly"
-        value: "true"
-        operator: "Equal"
-        effect: "PreferNoSchedule" 
       containers:
         - name: "build-athenacli-image"
           imagePullPolicy: IfNotPresent
-          image: quay.io/ouzi/kube-dind:18.09
+          image: quay.io/ouzi/toolbox:0.1.16
           command:
-            - runner.sh
-          args:
             - make
+          args:
+            - init-gcloud-cli
             - athenacli-build
-          securityContext:
-            privileged: true
-          resources:
-            requests:
-              memory: "2Gi"
-              cpu: 1
   - name: build-git-secret-scanner-image
     labels:
-      preset-docker: "true"
+      preset-gcloud-testinfra-prow: "true"
     context: build-git-secret-scanner-image
     decorate: true
     clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
@@ -480,31 +298,18 @@ presubmits:
     rerun_command: "build-git-secret-scanner-image"
     run_if_changed: 'git-secret-scanner/'
     spec:
-      nodeSelector:
-        group_name: image-builder
-      tolerations:
-      - key: "imagebuilderonly"
-        value: "true"
-        operator: "Equal"
-        effect: "PreferNoSchedule" 
       containers:
         - name: "build-git-secret-scanner-image"
           imagePullPolicy: IfNotPresent
-          image: quay.io/ouzi/kube-dind:18.09
+          image: quay.io/ouzi/toolbox:0.1.16
           command:
-            - runner.sh
-          args:
             - make
+          args:
+            - init-gcloud-cli
             - git-secret-scanner-build
-          securityContext:
-            privileged: true
-          resources:
-            requests:
-              memory: "2Gi"
-              cpu: 1
   - name: build-python-builder-image
     labels:
-      preset-docker: "true"
+      preset-gcloud-testinfra-prow: "true"
     context: build-python-builder-image
     decorate: true
     clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
@@ -515,25 +320,12 @@ presubmits:
     rerun_command: "build-python-builder-image"
     run_if_changed: 'python-builder/'
     spec:
-      nodeSelector:
-        group_name: image-builder
-      tolerations:
-      - key: "imagebuilderonly"
-        value: "true"
-        operator: "Equal"
-        effect: "PreferNoSchedule"  
       containers:
         - name: "build-python-builder-image"
           imagePullPolicy: IfNotPresent
-          image: quay.io/ouzi/kube-dind:18.09
+          image: quay.io/ouzi/toolbox:0.1.16
           command:
-            - runner.sh
-          args:
             - make
+          args:
+            - init-gcloud-cli
             - python-builder-build
-          securityContext:
-            privileged: true
-          resources:
-            requests:
-              memory: "2Gi"
-              cpu: 1

@@ -1,3 +1,6 @@
+
+GCLOUD_KEY_FILE := /etc/google-service-account/service-account.json
+
 .PHONY: go-builder-push
 go-builder-push:
 	@$(MAKE) -C go-builder push
@@ -61,3 +64,11 @@ git-secret-scanner-build:
 .PHONY: python-builder-build
 python-builder-build:
 	@$(MAKE) -C python-builder build
+
+.PHONY: init-gcloud-cli
+init-gcloud-cli:
+ifneq ("$(wildcard $(GCLOUD_KEY_FILE))","")
+	gcloud auth activate-service-account --key-file=$(GCLOUD_KEY_FILE)
+else
+	@echo $(GCLOUD_KEY_FILE) not present
+endif

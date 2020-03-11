@@ -9,9 +9,9 @@ TAG ?= $(GOLANG_VERSION)
 .PHONY: build push
 
 build: 
-	@docker build --build-arg GOLANG_VERSION=$(GOLANG_VERSION) \
-		--build-arg GOLANGCI_LINT_VERSION=$(GOLANGCI_LINT_VERSION) \
-		-t $(REPO):$(TAG) .
+	@gcloud builds submit --config cloudbuild-build.yaml \
+				--substitutions=_TAG_VERSION=$(TAG),_QUAY_REPO=$(REPO),_GOLANG_VERSION="$(GOLANG_VERSION)",_GOLANGCI_LINT_VERSION="$(GOLANGCI_LINT_VERSION)"
 
-push: build
-	@docker push $(REPO):$(TAG)
+push:
+	@gcloud builds submit --config cloudbuild-push.yaml \
+				--substitutions=_TAG_VERSION=$(TAG),_QUAY_REPO=$(REPO),_GOLANG_VERSION="$(GOLANG_VERSION)",_GOLANGCI_LINT_VERSION="$(GOLANGCI_LINT_VERSION)"
