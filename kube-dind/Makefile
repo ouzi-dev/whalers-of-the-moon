@@ -8,9 +8,9 @@ TAG ?= $(DOCKER_VERSION)
 .PHONY: build push
 
 build: 
-	@docker build --build-arg DOCKER_VERSION=$(DOCKER_VERSION) \
-		--build-arg HELM_VERSION=$(HELM_VERSION) \
-		-t $(REPO):$(TAG) .
+	@gcloud builds submit --config cloudbuild-build.yaml \
+				--substitutions=_TAG_VERSION=$(TAG),_QUAY_REPO=$(REPO),_DOCKER_VERSION="$(DOCKER_VERSION)",_HELM_VERSION="$(HELM_VERSION)"
 
-push: build
-	@docker push $(REPO):$(TAG)
+push:
+	@gcloud builds submit --config cloudbuild-push.yaml \
+				--substitutions=_TAG_VERSION=$(TAG),_QUAY_REPO=$(REPO),_DOCKER_VERSION="$(DOCKER_VERSION)",_HELM_VERSION="$(HELM_VERSION)"

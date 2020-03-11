@@ -1,9 +1,10 @@
 # Whalers of the moon <!-- omit in toc -->
 
-Just a bunch of dockerfiles - hosted in https://quay.io/organization/ouzi 
+Just a bunch of dockerfiles - hosted in https://quay.io/organization/ouzi  and built using [Google Cloud Build](https://cloud.google.com/cloud/build)
 
 ![Whalers of the moon](img/whalers.jpg)
 
+- [Prerequisities](#prerequisities)
 - [Dockerfiles](#dockerfiles)
   - [go-builder](#go-builder)
     - [build image](#build-image)
@@ -20,6 +21,10 @@ Just a bunch of dockerfiles - hosted in https://quay.io/organization/ouzi
     - [build image](#build-image-5)
   - [git-secret-scanner](#git-secret-scanner)
     - [build image](#build-image-6)
+
+## Prerequisities 
+
+In order to build the docker images locally, you need to setup your `gcloud` cli by running `gcloud init`, login using your `ouzi.dev` account and switch to the `ouzidev-testinfra-252513` project.
 
 ## Dockerfiles
 

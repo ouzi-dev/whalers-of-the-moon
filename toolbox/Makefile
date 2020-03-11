@@ -14,20 +14,27 @@ YQ_VERSION ?= 3.2.1
 .PHONY: build push
 
 build:
-	@docker build \
-	--build-arg HELM_VERSION=$(HELM_VERSION) \
-	--build-arg GO_BUILDER_TAG=$(GO_BUILDER_TAG) \
-	--build-arg KUBECTL_VERSION=$(KUBECTL_VERSION) \
-	--build-arg AWS_CLI_VERSION=$(AWS_CLI_VERSION) \
-	--build-arg TF_VERSION=$(TF_VERSION) \
-	--build-arg GOTPL_VERSION=$(GOTPL_VERSION) \
-	--build-arg CREDSTASH_VERSION=$(CREDSTASH_VERSION) \
-	--build-arg GCLOUD_VERSION=$(GCLOUD_VERSION) \
-	--build-arg YQ_VERSION=$(YQ_VERSION) \
-	-t $(REPO):$(TAG) .
-	
-	@docker tag $(REPO):$(TAG) $(REPO):latest
+	@gcloud builds submit --config cloudbuild-build.yaml \
+				--substitutions=_TAG_VERSION=$(TAG),_QUAY_REPO=$(REPO)\
+,_HELM_VERSION="$(HELM_VERSION)"\
+,_GO_BUILDER_TAG="$(GO_BUILDER_TAG)"\
+,_KUBECTL_VERSION="$(KUBECTL_VERSION)"\
+,_AWS_CLI_VERSION="$(AWS_CLI_VERSION)"\
+,_TF_VERSION="$(TF_VERSION)"\
+,_GOTPL_VERSION="$(GOTPL_VERSION)"\
+,_CREDSTASH_VERSION="$(CREDSTASH_VERSION)"\
+,_GCLOUD_VERSION="$(GCLOUD_VERSION)"\
+,_YQ_VERSION="$(YQ_VERSION)"
 
-push: build
-	@docker push $(REPO):$(TAG)
-	@docker push $(REPO):latest
+push:
+	@gcloud builds submit --config cloudbuild-push.yaml \
+				--substitutions=_TAG_VERSION=$(TAG),_QUAY_REPO=$(REPO)\
+,_HELM_VERSION="$(HELM_VERSION)"\
+,_GO_BUILDER_TAG="$(GO_BUILDER_TAG)"\
+,_KUBECTL_VERSION="$(KUBECTL_VERSION)"\
+,_AWS_CLI_VERSION="$(AWS_CLI_VERSION)"\
+,_TF_VERSION="$(TF_VERSION)"\
+,_GOTPL_VERSION="$(GOTPL_VERSION)"\
+,_CREDSTASH_VERSION="$(CREDSTASH_VERSION)"\
+,_GCLOUD_VERSION="$(GCLOUD_VERSION)"\
+,_YQ_VERSION="$(YQ_VERSION)"
