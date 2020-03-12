@@ -18,6 +18,7 @@ steps:
           '--build-arg', 'CREDSTASH_VERSION=${_CREDSTASH_VERSION}', 
           '--build-arg', 'GCLOUD_VERSION=${_GCLOUD_VERSION}', 
           '--build-arg', 'YQ_VERSION=${_YQ_VERSION}', 
+          '--build-arg', 'KUBEVAL_VERSION=${_KUBEVAL_VERSION}', 
           '.' 
         ]
   waitFor: ['login']
