@@ -33,6 +33,10 @@ git-secret-scanner-push:
 python-builder-push:
 	@$(MAKE) -C python-builder push
 
+.PHONY: gcloud-builder-push
+gcloud-builder-push:
+	@$(MAKE) -C gcloud-builder push
+
 .PHONY: toolbox-build
 toolbox-build:
 	@$(MAKE) -C toolbox build	
@@ -64,6 +68,11 @@ git-secret-scanner-build:
 .PHONY: python-builder-build
 python-builder-build:
 	@$(MAKE) -C python-builder build
+
+.PHONY: gcloud-builder-build
+gcloud-builder-build:
+	@$(MAKE) -C gcloud-builder build
+
 
 .PHONY: init-gcloud-cli
 init-gcloud-cli:
