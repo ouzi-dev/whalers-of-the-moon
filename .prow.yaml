@@ -151,7 +151,7 @@ postsubmits:
           args:
             - init-gcloud-cli
             - python-builder-push
-  - name: push-google-builder-image
+  - name: push-gcloud-builder-image
     labels:
       preset-gcloud-testinfra-prow: "true"
     decorate: true
@@ -159,17 +159,17 @@ postsubmits:
     max_concurrency: 1 
     branches:
       - master
-    run_if_changed: 'google-builder/'
+    run_if_changed: 'gcloud-builder/'
     spec:
       containers:
-        - name: "build-google-builder-image"
+        - name: "build-gcloud-builder-image"
           imagePullPolicy: IfNotPresent
-          image: quay.io/ouzi/toolbox:0.1.16
+          image: quay.io/ouzi/gcloud-builder:286.0.0
           command:
             - make
           args:
             - init-gcloud-cli
-            - google-builder-push
+            - gcloud-builder-push
 
 presubmits:
   - name: build-kube-dind-image
@@ -348,25 +348,25 @@ presubmits:
           args:
             - init-gcloud-cli
             - python-builder-build
-  - name: build-google-builder-image
+  - name: build-gcloud-builder-image
     labels:
       preset-gcloud-testinfra-prow: "true"
-    context: build-google-builder-image
+    context: build-gcloud-builder-image
     decorate: true
     clone_uri: "git@github.com:ouzi-dev/whalers-of-the-moon.git"
     always_run: false 
     skip_report: false 
     max_concurrency: 1 
-    trigger: "(?m)build-google-builder-image( please)?" 
-    rerun_command: "build-google-builder-image"
-    run_if_changed: 'google-builder/'
+    trigger: "(?m)build-gcloud-builder-image( please)?" 
+    rerun_command: "build-gcloud-builder-image"
+    run_if_changed: 'gcloud-builder/'
     spec:
       containers:
         - name: "build-google-builder-image"
           imagePullPolicy: IfNotPresent
-          image: quay.io/ouzi/toolbox:0.1.16
+          image: quay.io/ouzi/gcloud-builder:286.0.0
           command:
             - make
           args:
             - init-gcloud-cli
-            - google-builder-build
+            - gcloud-builder-build
