@@ -1,5 +1,5 @@
-HELM2_VERSION ?= v2.16.3
-HELM3_VERSION ?= v3.1.1
+HELM2_VERSION ?= v2.16.12
+HELM3_VERSION ?= v3.3.4
 
 REPO := quay.io/ouzi/helm
 
