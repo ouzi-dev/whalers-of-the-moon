@@ -1,5 +1,5 @@
 REPO := quay.io/ouzi/toolbox
-TAG ?= 0.1.19
+TAG ?= 0.1.20
 
 GO_BUILDER_TAG ?= 1.14.0
 HELM_VERSION ?= v3.3.4

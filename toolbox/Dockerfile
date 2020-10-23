@@ -30,6 +30,7 @@ RUN apk add --virtual build-deps build-base python-dev libffi-dev && apk add --p
     less \
     mailcap \
     jq \
+    grep \
     && pip install --upgrade awscli==${AWS_CLI_VERSION} \ 
     && pip install --upgrade credstash==${CREDSTASH_VERSION} \
     && npm config set unsafe-perm true \
