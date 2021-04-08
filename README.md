@@ -26,6 +26,14 @@ Just a bunch of dockerfiles - hosted in https://quay.io/organization/ouzi  and b
 
 In order to build the docker images locally, you need to setup your `gcloud` cli by running `gcloud init`, login using your `ouzi.dev` account and switch to the `ouzidev-testinfra-252513` project.
 
+## Decrypt the glcoud provided secrets
+
+```
+echo -n "ENCRYPTED_TEXT_BASE64" | base64 -D > ciphertext.txt
+gcloud kms decrypt --project=ouzidev-testinfra-252513 --key=build --keyring=test-infra --location=europe-west4 --ciphertext-file=ciphertext.txt --plaintext-file=-
+DECRYPTED_TEXT
+```
+
 ## Dockerfiles
 
 ### go-builder
