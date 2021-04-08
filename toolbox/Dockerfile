@@ -10,7 +10,11 @@ ARG CREDSTASH_VERSION
 ARG GCLOUD_VERSION
 ARG HELM_VERSION
 
-RUN apk add --virtual build-deps build-base python-dev libffi-dev && apk add --purge --update \
+RUN apk add --virtual build-deps build-base python3-dev libffi-dev && apk add --purge --update \
+    gcc \
+    musl-dev \
+    openssl-dev \
+    cargo \
     libressl-dev \
     ca-certificates \
     wget \
@@ -24,15 +28,15 @@ RUN apk add --virtual build-deps build-base python-dev libffi-dev && apk add --p
     npm \
     zip \
     tar \
-    python \
-    py-pip \
+    python3 \
+    py3-pip \
     groff \
     less \
     mailcap \
     jq \
     grep \
-    && pip install --upgrade awscli==${AWS_CLI_VERSION} \ 
-    && pip install --upgrade credstash==${CREDSTASH_VERSION} \
+    && pip3 install --upgrade awscli==${AWS_CLI_VERSION} \
+    && pip3 install --upgrade credstash==${CREDSTASH_VERSION} \
     && npm config set unsafe-perm true \
     && npm install -g npm \
     && wget -q https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz \
