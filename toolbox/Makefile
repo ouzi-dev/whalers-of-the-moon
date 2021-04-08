@@ -1,11 +1,11 @@
 REPO := quay.io/ouzi/toolbox
-TAG ?= 0.1.20
+TAG ?= 0.1.21
 
-GO_BUILDER_TAG ?= 1.14.0
-HELM_VERSION ?= v3.3.4
-KUBECTL_VERSION ?= v1.19.2
-AWS_CLI_VERSION ?= 1.18.156
-TF_VERSION ?= 0.13.4
+GO_BUILDER_TAG ?= 1.15.11
+HELM_VERSION ?= v3.5.3
+KUBECTL_VERSION ?= v1.20.5
+AWS_CLI_VERSION ?= 1.19.45
+TF_VERSION ?= 0.14.4
 GOTPL_VERSION ?= v0.7
 CREDSTASH_VERSION ?= 1.16.1
 GCLOUD_VERSION ?= 278.0.0
@@ -13,6 +13,20 @@ YQ_VERSION ?= 3.4.0
 KUBEVAL_VERSION ?= 0.15.0
 
 .PHONY: build push
+
+build-local:
+	docker build \
+		--build-arg GO_BUILDER_TAG=$(GO_BUILDER_TAG) \
+		--build-arg HELM_VERSION=$(HELM_VERSION) \
+		--build-arg KUBECTL_VERSION=$(KUBECTL_VERSION) \
+		--build-arg AWS_CLI_VERSION=$(AWS_CLI_VERSION) \
+		--build-arg TF_VERSION=$(TF_VERSION) \
+		--build-arg GOTPL_VERSION=$(GOTPL_VERSION) \
+		--build-arg CREDSTASH_VERSION=$(CREDSTASH_VERSION) \
+		--build-arg GCLOUD_VERSION=$(GCLOUD_VERSION) \
+		--build-arg YQ_VERSION=$(YQ_VERSION) \
+		--build-arg KUBEVAL_VERSION=$(KUBEVAL_VERSION) \
+		-t $(REPO):$(TAG) -f ./Dockerfile .
 
 build:
 	@gcloud builds submit --config cloudbuild-build.yaml \
