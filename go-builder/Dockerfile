@@ -1,6 +1,6 @@
 ARG GOLANG_VERSION
 
-FROM golang:${GOLANG_VERSION}-alpine3.13
+FROM golang:${GOLANG_VERSION}-alpine3.16
 
 ARG GOLANGCI_LINT_VERSION
 
@@ -10,12 +10,10 @@ RUN apk add --no-cache --update curl make bash git gcc libc-dev nodejs npm zip o
 
 RUN echo "${GOLANGCI_LINT_VERSION}"
 
-RUN GO111MODULE=on go get -u github.com/golangci/golangci-lint/cmd/golangci-lint@v${GOLANGCI_LINT_VERSION}
+RUN go install github.com/golangci/golangci-lint/cmd/golangci-lint@v${GOLANGCI_LINT_VERSION}
 
-RUN go get -u github.com/mitchellh/gox
+RUN go install github.com/mitchellh/gox@latest
 
-RUN go get golang.org/x/tools/cmd/goimports
+RUN go install golang.org/x/tools/cmd/goimports@latest
 
-RUN go get github.com/golang/mock/gomock
-
-RUN go install github.com/golang/mock/mockgen
+RUN go install github.com/golang/mock/mockgen@latest

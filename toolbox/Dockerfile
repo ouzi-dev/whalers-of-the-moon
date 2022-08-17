@@ -53,9 +53,9 @@ RUN wget -q https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_
     && mv kubectl /bin/kubectl \
     && chmod +x /bin/kubectl
 
-RUN go get github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb
-RUN go get github.com/brancz/gojsontoyaml
-RUN go get github.com/google/go-jsonnet/cmd/jsonnet
+RUN go install github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@latest
+RUN go install github.com/brancz/gojsontoyaml@latest
+RUN go install github.com/google/go-jsonnet/cmd/jsonnet@latest
 
 ARG GOTPL_VERSION
 RUN wget -q https://github.com/belitre/gotpl/releases/download/${GOTPL_VERSION}/gotpl-${GOTPL_VERSION}-linux-amd64.zip \
