@@ -1,7 +1,7 @@
 REPO := quay.io/ouzi/gcloud-builder
 TAG ?= $(GCLOUD_VERSION)
 
-GCLOUD_VERSION ?= 286.0.0
+GCLOUD_VERSION ?= 398.0.0
 
 .PHONY: build push
 
